@@ -9,7 +9,7 @@
   "table": "tb_mz_emr",
   "date_column": "jzksrq",
   "text_column": "zs",
-  "id_columns": ["personid", "yljgid"],
+  "id_columns": ["yljgdm", "jzlsh"],
   "start_date": "2023-01-01",
   "output_dir": "./data/results",
   "result_file_prefix": "hxdzz",
