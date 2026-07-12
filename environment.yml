@@ -1,0 +1,29 @@
+name: arid-nowcasting
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12.3
+  - pip
+  - pandas>=2.0.0
+  - numpy>=1.24.0
+  - scipy>=1.10.0
+  - scikit-learn>=1.2.0
+  - xgboost>=1.7.0
+  - lightgbm>=4.0.0
+  - pytorch>=2.0.0
+  - statsmodels>=0.14.0
+  - matplotlib>=3.7.0
+  - seaborn>=0.12.0
+  - openpyxl>=3.1.0
+  - xlrd>=2.0.0
+  - pymysql>=1.0.0
+  - tqdm>=4.65.0
+  - click>=8.0.0
+  - loguru>=0.7.0
+  - python-dateutil>=2.8.0
+  - pip:
+      - ollama>=0.1.0
+      - fire>=0.5.0
+      - scikit-posthocs>=0.10.0
+      - transformers>=4.30.0   # Optional; remove if only using Ollama
