@@ -1,0 +1,35 @@
+{
+  "database": {
+    "host": "localhost",
+    "port": 3306,
+    "user": "your_username",
+    "password": "your_password",
+    "database": "your_database_name"
+  },
+  "table": "tb_mz_emr",
+  "date_column": "jzksrq",
+  "text_column": "zs",
+  "id_columns": ["personid", "yljgid"],
+  "start_date": "2023-01-01",
+  "output_dir": "./data/results",
+  "result_file_prefix": "hxdzz",
+  "instruction_file": "instructions/instruction2.txt",
+  "model_name": "llama3.1:8b",
+  "temperature": 0.2,
+  "top_p": 0.7,
+  "top_k": 10,
+  "min_records_per_day": 1000,
+  "specific_keywords": [
+    "咳", "痰", "痛", "呼吸", "咽", "热", "鼻", "涕",
+    "喘", "寒", "胸", "气", "慌", "烧", "喉", "咯"
+  ],
+  "target_symptoms": [
+    "fever",
+    "cough",
+    "sore_throat",
+    "chest_pain",
+    "myalgia",
+    "dyspnea"
+  ],
+  "ollama_host": "http://localhost:11434"
+}
