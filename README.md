@@ -95,7 +95,7 @@ This selects symptom combinations with Spearman correlation |rho| > 0.4 with the
 ### Step 4: Train nowcasting models
 
 ```bash
-cd ../noecasting
+cd ../nowcasting
 python model_ML.py
 python model_DL.py
 ```
