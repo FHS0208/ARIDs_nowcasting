@@ -35,7 +35,7 @@ All Python dependencies are listed in `requirements.txt` and `environment.yml`. 
 After installing Python (and optionally Conda) and Ollama, clone this repository and set up the environment:
 
 ```bash
-git clone https://github.com/yourusername/ARIDs_nowcasting.git
+git clone https://github.com/FHS0208/ARIDs_nowcasting.git
 cd ARIDs_nowcasting
 ```
 
@@ -69,10 +69,9 @@ cd data
 python generate_mock_data.py
 ```
 
-This creates three files:
+This creates file:
 
-- `data.xlsx` – daily time‑series data (columns: rq, x1…x57, up, down, normal, xg, lg, brk, sum)
-- `train1000.csv` – 1,000 gold‑standard annotations for LLM evaluation
+- `data.xlsx` – daily time‑series data
 
 ### Step 2: LLM extraction and evaluation (requires Ollama)
 
