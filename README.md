@@ -155,10 +155,11 @@ ARIDs_nowcasting/
 │   └── outbreak/
 │       └── z_score_detection.py   # Outbreak detection
 │
-└── outputs/                       # All results saved here (auto‑created)
+└── results/                       # All results saved here (auto‑created)
     ├── llm/
     ├── feature_selection/
-    ├── prediction/
+    ├── ML/
+    ├── DL/
     └── outbreak/
 ```
 
