@@ -1,12 +1,12 @@
 {
   "database": {
     "host": "localhost",
-    "port": 3306,
+    "port": "port",
     "user": "your_username",
     "password": "your_password",
     "database": "your_database_name"
   },
-  "table": "tb_mz_emr",
+  "table": "you_table_name",
   "date_column": "jzksrq",
   "text_column": "zs",
   "id_columns": ["yljgdm", "jzlsh"],
