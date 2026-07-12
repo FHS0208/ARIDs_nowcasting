@@ -10,13 +10,12 @@ This repository provides all code needed to reproduce the analyses described in 
 ## Repository Structure
 
 ARIDs_nowcasting/
-├── README.md # This file
-├── LICENSE # MIT License
-├── requirements.txt # Python dependencies (pip)
-├── environment.yml # Conda environment
-├── .gitignore # Excluded files
+├── README.md 
+├── LICENSE 
+├── requirements.txt 
+├── environment.yml 
 │
-├── data/ # Data (mock data generated here)
+├── data/ # Data 
 │ └── mock_data_generator.py # Generates synthetic data
 │
 ├── instructions/ # LLM prompts
@@ -111,8 +110,6 @@ rq	Date (YYYY-MM-DD)
 x1 … x57	Daily symptom combination frequencies
 up / down	Upper / lower respiratory indicators
 normal	Normal / other cases
-xg	Daily COVID-19 case count
-lg	Daily influenza case count
 sum	Daily ARIDs case count (target)
 The mock_data_generator.py produces data in this exact format.
 
