@@ -1,6 +1,6 @@
 # ARIDs Nowcasting: Pipeline for Acute Respiratory Infectious Diseases Nowcasting Using LLM-Extracted Symptoms
 
-Code associated with a complete pipeline for nowcasting Acute Respiratory Infectious Diseases (ARIDs), including: (1) symptom extraction from unstructured Chinese chief complaints using open‑source large language models (LLMs) via Ollama; (2) evaluation of multiple LLMs against a gold‑standard annotation set; (3) feature selection via Spearman correlation; (4) training and evaluation of traditional machine learning (LR, RF, XGBoost, DT, SVM) and deep learning (GRU, LSTM) models for daily case count prediction; and (5) Z‑score based outbreak detection. This repository does **not** contain any real patient data; a comprehensive mock‑data generator is provided to simulate the required input format, ensuring full reproducibility.
+Code associated with a complete pipeline for nowcasting Acute Respiratory Infectious Diseases (ARIDs), including: (1) symptom extraction from unstructured Chinese chief complaints using open‑source large language models (LLMs) via Ollama; (2) evaluation of multiple LLMs against a gold‑standard annotation set; (3) feature selection via Spearman correlation; (4) training and evaluation of traditional machine learning (LR, RF, XGBoost, DT, SVM) and deep learning (GRU, LSTM) models for daily case count prediction; and (5) Z‑score based outbreak detection. This repository does **not** contain any real patient data; a comprehensive mock‑data generator is provided to simulate the required input format, ensuring reproducibility.
 
 This documentation will be updated when the manuscript is publicly available. The method builds on established nowcasting and syndromic surveillance frameworks, integrating modern LLMs for automated feature extraction from electronic health records.
 
@@ -69,11 +69,16 @@ cd data
 python generate_mock_data.py
 ```
 
-This creates file:
+This creates the following files:
 
-- `data.xlsx` – daily time‑series data
+* `data.xlsx` – daily time‑series data for nowcasting.
+* `train1000.csv` – 1,000 simulated chief complaints (unlabeled) with metadata, for LLM batch extraction.
+* `train1000mark.csv` – Same 1,000 chief complaints with gold‑standard symptom labels for LLM evaluation.
+* `train_zz.csv` – Simulated regex-based predictions.
 
 ### Step 2: LLM extraction and evaluation (requires Ollama)
+
+First, run batch extraction to obtain predictions from each LLM model. This step requires a running Ollama instance and will generate `{model_name}.csv` (with `yljgdm`, `jzlsh`, `sym1`..`sym6`) and `{model_name}_time.txt` files in the `data/` directory.​
 
 ```bash
 cd scripts/llm
@@ -90,7 +95,7 @@ cd ../feature_selection
 python spearman_selection.py --data ../../data/data.xlsx --output ../../outputs/feature_selection
 ```
 
-This selects symptom combinations with Spearman correlation |rho| > 0.4 with the target sum.
+This selects symptom combinations with Spearman correlation |rho| > 0.4 with the target `sum`. The selected features are saved as `spearman_selected_features.csv` and will be automatically used by the nowcasting models in Step 4.
 
 ### Step 4: Train nowcasting models
 
@@ -100,16 +105,25 @@ python model_ML.py
 python model_DL.py
 ```
 
-All model predictions and performance metrics (R², MAE, MAPE, RMSE) are saved in the output directory.
+Both scripts automatically load the feature list from `spearman_selected_features.csv` and fall back to a default set if the file is missing. All model predictions and performance metrics (R², MAE, MAPE, RMSE) are saved under `./results/ML/` and `./results/DL/`, respectively, with per‑feature and per‑direction subdirectories.
 
 ### Step 5: Outbreak detection
 
+You can run outbreak detection on a specific prediction file, or automatically select the best‑performing model based on a chosen metric.
+
 ```bash
 cd ../outbreak
-python z_score_detection.py
+# Manual mode – specify the prediction CSV
+python z_score_detection.py --predictions ../../results/DL/LSTM/up/x1/ts_5/predictions.csv --split_date 2024-09-01
+
+# Auto mode – find the best LSTM model (by test R²)
+python z_score_detection.py --auto_best --model_type DL --model_name LSTM --split_date 2024-09-01
+
+# Auto mode for XGBoost (best MAPE)
+python z_score_detection.py --auto_best --model_type ML --model_name XGBoost --metric MAPE --ascending --direction up --split_date 2024-09-01
 ```
 
-This evaluates Z‑score thresholds (2.0, 2.5, 3.0) and generates stratified confusion matrices, time‑series plots, and scatter plots.
+This evaluates Z‑score thresholds (2.0, 2.5, 3.0) and generates stratified confusion matrices, time‑series plots, and scatter plots under ​./results/outbreak/​.
 
 ### (Optional) Real‑time extraction from your own database
 
