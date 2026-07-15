@@ -862,8 +862,7 @@ def run_sensitivity_analysis():
     f1_values = model_avg['F1-score'].values
     time_values = model_avg['Time_seconds'].values
     f1_norm = f1_values / np.max(f1_values)
-    time_inv = 1 / (time_values + 1e-6)
-    time_norm = time_inv / np.max(time_inv)
+    time_norm = 1 / (time_values) 
 
     performance_weights = np.arange(0.60, 0.91, 0.05)
     results = []
