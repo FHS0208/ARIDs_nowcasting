@@ -453,8 +453,10 @@ def run_statistical_analysis():
 
     # ---- 5e. Ranking (Composite = 0.7*F1_norm + 0.3*Time_norm) ----
     perf = df.groupby('Model').agg({'F1-score': 'mean', 'Time_seconds': 'mean'}).reset_index()
+    perf = perf[perf['Model'] != 'Regex']  
     perf['F1_norm'] = perf['F1-score'] / perf['F1-score'].max()
-    perf['Time_norm'] = (1 / (perf['Time_seconds'] + 0.001)) / (1 / (perf['Time_seconds'] + 0.001)).max()
+    perf['Time_inv'] = 1 / (perf['Time_seconds'] + 1e-6)
+    perf['Time_norm'] = perf['Time_inv'] / perf['Time_inv'].max()
     perf['Composite'] = 0.7 * perf['F1_norm'] + 0.3 * perf['Time_norm']
     ranking = perf.sort_values('Composite', ascending=False)
 
@@ -862,7 +864,8 @@ def run_sensitivity_analysis():
     f1_values = model_avg['F1-score'].values
     time_values = model_avg['Time_seconds'].values
     f1_norm = f1_values / np.max(f1_values)
-    time_norm = 1 / (time_values) 
+    time_inv = 1 / (time_values + 1e-6)
+    time_norm = time_inv / np.max(time_inv)
 
     performance_weights = np.arange(0.60, 0.91, 0.05)
     results = []
