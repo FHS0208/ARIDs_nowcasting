@@ -1,6 +1,5 @@
 """
-Unified script for training and evaluating GRU and LSTM models
-for time-series prediction of respiratory cases.
+Unified script for training GRU and LSTM models for time-series nowcasting.
 
 It performs grid search over:
   - features (x1, x2, ...)
@@ -9,7 +8,7 @@ It performs grid search over:
   - hyperparameters (hidden_size, num_layers, lr, dropout)
 
 Early stopping with validation split (80/20 from training period) is used.
-All results (predictions and metrics) are saved under ./results/RNN/
+All results (predictions and metrics) are saved under ./results/DL/
 """
 
 import os
