@@ -73,8 +73,6 @@ def spearman_correlation_with_interpolation(df: pd.DataFrame, feature_cols: List
         axis=0
     )
     
-    # After interpolation, there might still be columns that are completely NaN (all missing).
-    # We'll drop them from correlation calculation.
     results = []
     for col in feature_cols:
         if col not in df_sorted.columns:
@@ -132,7 +130,7 @@ def main(args):
     df = load_data(args.data)
     print(f"Columns: {df.columns.tolist()}")
     
-    # Identify feature columns (symptom combination columns only)
+    # Identify feature columns
     feature_cols = identify_feature_columns(df, args.target)
     
     # Compute Spearman correlation with linear interpolation
