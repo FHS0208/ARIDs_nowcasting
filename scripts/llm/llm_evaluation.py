@@ -1,6 +1,5 @@
 """
-Full Pipeline: LLM Evaluation -> Regex -> symeva.xlsx -> Statistical Analysis
-Run this single script to reproduce all results and figures for the LLM performance section.
+Run this script to reproduce results and figures for the LLM performance section.
 
 Input files (place under ./data/):
     - train1000mark.csv (gold standard)
@@ -58,7 +57,7 @@ def find_model_files(data_dir):
 MODEL_FILES = find_model_files(DATA_DIR)
 print(f"MODEL FILES: {list(MODEL_FILES.keys())}")
 
-# Base processing time (seconds) for each model (excluding symptom index prefix)
+# Base processing time (seconds) for each model
 # Extracted from symeva.xlsx pattern: total = symptom_idx*3600 + base
 def get_model_total_time(model_key):
     """Return total processing time in seconds for the given model."""
@@ -111,7 +110,6 @@ MODEL_ORDER = [
 ]
 
 # Symptom order and mapping
-#SYMPTOM_LIST = ['fever',  'cough', 'sore throat','dyspnea', 'chest pain', 'myalgia']
 SYMPTOM_LIST = ['fever', 'cough', 'sore throat', 'chest pain', 'myalgia', 'dyspnea']
 # Map from gold column msym{i} and pred column sym{i} to display name
 SYMPTOM_MAP = {
@@ -752,7 +750,7 @@ def run_statistical_analysis():
         plt.close()
 
     # ========================================================================
-    # 7. Save all statistical results to Excel (multiple sheets)
+    # 7. Save all statistical results to Excel
     # ========================================================================
     with pd.ExcelWriter(os.path.join(OUTPUT_DIR, 'statistical_analysis_results_detailed.xlsx')) as writer:
         # Descriptive
