@@ -1,7 +1,7 @@
 """
 Unified script for training and evaluating multiple ML models
-for respiratory disease prediction using time-series features.
-All results are saved under './results/' with model-specific subfolders.
+for respiratory disease nowcasting using time-series features.
+All results are saved under './results/ML/' with model-specific subfolders.
 """
 
 import os
@@ -109,7 +109,7 @@ def load_selected_features(selection_path='./results/feature_selection/spearman_
         print(f"Feature selection file not found at {selection_path}. Using default feature list.")
     return default_features
 
-# Define feature columns (auto-load)
+# Define feature columns
 X_FEATURES = load_selected_features()
 SPLIT_DATE = pd.Timestamp('2024-09-01')
 
