@@ -1,5 +1,6 @@
 """
-Unified script for training GRU and LSTM models for time-series nowcasting.
+Unified script for training GRU and LSTM models
+for time-series nowcasting.
 
 It performs grid search over:
   - features (x1, x2, ...)
