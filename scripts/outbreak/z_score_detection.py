@@ -7,7 +7,7 @@ Outbreak detection using Z-score thresholding on model predictions.
 This script evaluates the ability of a trained prediction model (e.g., LSTM, XGBoost)
 to detect epidemic outbreaks. It computes daily Z-scores based on weekday-specific
 baselines (mean and std) derived from the training set, then applies a threshold
-to flag predicted outbreaks. Performance metrics (precision, recall, F1, lead days)
+to flag predicted outbreaks. Performance metrics (precision, recall, F1)
 are calculated against actual outbreak days.
 
 Usage:
